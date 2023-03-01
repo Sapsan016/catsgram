@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:13.7-alpine
+    volumes:
+      - /var/lib/postgresql/data/
+    ports:
+      - "6541:5432"
+    environment:
+      - POSTGRES_DB=cats
+      - POSTGRES_USER=kitty
+      - POSTGRES_PASSWORD=purrr
+
+  server:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/cats
+      - POSTGRES_USER=kitty
+      - POSTGRES_PASSWORD=- POSTGRES_PASSWORD=purrr
+
+
+
